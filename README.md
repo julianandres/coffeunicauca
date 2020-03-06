@@ -19,6 +19,7 @@ In the next figures can to bee seen the system coupling
 # FLIGHT TEST
 
 The test produces the next image
+
 <img src="https://github.com/julianandres/coffeunicauca/blob/master/documentos/Imagenes/Captura4.jpg" width="500" height="500">
 
 # FLIGHT RESULTS
