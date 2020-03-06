@@ -19,11 +19,11 @@ In the next figures can to bee seen the system coupling
 # FLIGHT TEST
 
 The test produces the next image
-<img src="https://github.com/julianandres/coffeunicauca/blob/master/documentos/Imagenes/Captura4.JPEG" width="500" height="500">
+<img src="https://github.com/julianandres/coffeunicauca/blob/master/documentos/Imagenes/Captura4.jpg" width="500" height="500">
 
 # FLIGHT RESULTS
 
-<img src="https://github.com/julianandres/coffeunicauca/blob/master/documentos/Imagenes/Resultado.JPEG" width="500" height="500">
+<img src="https://github.com/julianandres/coffeunicauca/blob/master/documentos/Imagenes/Resultado.jpeg" width="500" height="500">
 
 
 The process of creation and planning of the mission is explained in https://youtu.be/BUzujMyWkc8,
