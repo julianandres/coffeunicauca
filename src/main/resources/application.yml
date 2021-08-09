@@ -1,0 +1,26 @@
+spring:
+  jmx:
+     default-domain: suite2
+  application:
+     name: suite-service  # Service registers under this name
+  datasource:
+     url: jdbc:mysql://localhost:3306/suite2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Lima&enabledTLSProtocols=TLSv1.2
+     username: root
+     password: root
+     testOnBorrow: true
+     validationQuery: select 1
+     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: MYSQL
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        proc:
+            param_null_passing: true
+
+server:
+  port: 8090   # HTTP (Tomcat) port
+logging:
+  level:
+    org.exampledriven.eureka: DEBUG

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Quick Start - Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/main.js"></script>
+
+	
+</head>
+<body>
+
+
+
+<div id="mapid" style="width: 100%; height: 100%; position:fixed;"></div>
+<script>
+	var mymap = L.map('mapid').setView(new L.LatLng(2.39470384667764, -76.73893726213579), 20);
+	window.leafletmap = mymap;
+	var southWest = L.latLng(2.394703853406246, -76.73893726213767),
+	northEast = L.latLng(2.3955428881953558, -76.73763781097055),
+	bounds = L.latLngBounds(northEast, southWest);
+	var googleTraffic = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 21,
+        minZoom: 16,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    }).addTo(mymap);
+	console.log(bounds);
+	L.tileLayer('tiles/{z}/{x}/{-y}.png', {
+		minZoom: 16, maxZoom: 21,
+		bounds:bounds,
+		detectRetina:true,
+		attribution: 'Machine'
+	}).addTo(mymap);
+</script>
+
+
+
+</body>
+</html>
