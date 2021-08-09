@@ -17,7 +17,7 @@ public class NativeQueryRepositoryImp implements NativeQueryRepository{
 
     @Override
     public List<PlantDTO> findPlantsNotCompleted() {
-        String sql = "SELECT id, area, volumen, contorno FROM plant WHERE volumen>0 AND manual_values is null";
+        String sql = "SELECT id, area, volumen, contorno FROM plant WHERE manual_values is null";
         return em.unwrap(org.hibernate.Session.class).createSQLQuery(sql).setResultTransformer(org.hibernate.transform.Transformers.aliasToBean(PlantDTO.class)).list();
     }
 }

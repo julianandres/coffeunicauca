@@ -9,8 +9,8 @@
 	
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="leaflet/leaflet-src.js" ></script>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/main.js"></script>
 
@@ -22,26 +22,46 @@
 
 <div id="mapid" style="width: 100%; height: 100%; position:fixed;"></div>
 <script>
-	var mymap = L.map('mapid').setView(new L.LatLng(2.39470384667764, -76.73893726213579), 20);
+	$.getJSON(location.origin + "/getPlantsToComplete").done(res=>{
+		console.log(res);
+	});
+
+	var jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiSnVsaWFuIiwiZXhwIjoxNjI4NTUwODQ4fQ.mCYKGBbjINR05wod4fycAK5lSTY88sMuC58JQpOiBvI";
+	var mymap = L.map('mapid').setView(new L.LatLng(2.3951228022907083, -76.7386613044317), 21);
 	window.leafletmap = mymap;
-	var southWest = L.latLng(2.394703853406246, -76.73893726213767),
-	northEast = L.latLng(2.3955428881953558, -76.73763781097055),
-	bounds = L.latLngBounds(northEast, southWest);
+	var southWest = L.latLng([2.394703853406243, -76.73893726213578]),
+	northEast = L.latLng([2.3955428881953593, -76.73763781096866]),
+	bounds = L.latLngBounds([southWest, northEast]);
 	var googleTraffic = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-        maxZoom: 21,
+        maxZoom: 25,
         minZoom: 16,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     }).addTo(mymap);
-	console.log(bounds);
-	L.tileLayer('tiles/{z}/{x}/{-y}.png', {
-		minZoom: 16, maxZoom: 21,
-		bounds:bounds,
-		detectRetina:true,
-		attribution: 'Machine'
-	}).addTo(mymap);
+    $.ajax({
+            url: "http://"+location.hostname + ":8000/api/token-auth/",
+            cache: false,
+            type: "POST",
+            contentType: "application/json",
+            data: '{"username": "Julian","password": "940925jabort"}',
+    		dataType: 'json',
+            success: function (json) {
+                console.log(json);
+				L.tileLayer("http://"+ location.hostname+':8000/api/projects/2/tasks/121acf05-fe78-4587-ade9-42b467bfa233/orthophoto/tiles/{z}/{x}/{y}.png?jwt='+json.token, {
+					bounds:bounds,
+					minZoom: 0,
+					maxZoom: 124,
+					maxNativeZoom: 24,
+					tms:false,
+					detectRetina: true
+				}).addTo(mymap);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Status: " + textStatus);
+                console.log("Error: " + errorThrown);
+            }
+        });
+
+
 </script>
-
-
-
 </body>
 </html>
