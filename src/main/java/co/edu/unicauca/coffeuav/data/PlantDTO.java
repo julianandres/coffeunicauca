@@ -5,6 +5,7 @@ public class PlantDTO {
     private  String contorno;
     private  String area;
     private  String volumen;
+    private String posicionAlgoritmo;
 
     public String getContorno() {
         return contorno;
@@ -36,5 +37,13 @@ public class PlantDTO {
 
     public void setVolumen(String volumen) {
         this.volumen = volumen;
+    }
+
+    public String getPosicionAlgoritmo() {
+        return posicionAlgoritmo;
+    }
+
+    public void setPosicionAlgoritmo(String posicionAlgoritmo) {
+        this.posicionAlgoritmo = posicionAlgoritmo;
     }
 }

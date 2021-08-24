@@ -5,7 +5,7 @@
 	<title>Quick Start - Leaflet</title>
 
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
@@ -13,19 +13,49 @@
     <script src="leaflet/leaflet-src.js" ></script>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/main.js"></script>
+	<link rel="stylesheet" href="js/bootstrap/css/bootstrap.css" >
 
 	
 </head>
 <body>
-
-
-
 <div id="mapid" style="width: 100%; height: 100%; position:fixed;"></div>
-<script>
-	$.getJSON(location.origin + "/getPlantsToComplete").done(res=>{
-		console.log(res);
-	});
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="js/bootstrap/js/bootstrap.min.js"></script>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	Launch demo modal
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Datos Planta</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="#" method="POST" role="form" name="form" id="register" >
+					<div class="form-group">
+						<label for="plantHeight" class="col-form-label">Altura:</label>
+						<input type="text" class="form-control" id="plantHeight" name="altura">
+					</div>
+					<div class="form-group">
+						<label for="numBranches" class="col-form-label">Número de Ramas:</label>
+						<input class="form-control" id="numBranches" name="numRamas"/>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						<button type="submit" class="btn btn-primary" data-name="register" onclick="formSubmit(event)">Guardar</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script>
 	var jwtToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6IiIsInVzZXJuYW1lIjoiSnVsaWFuIiwiZXhwIjoxNjI4NTUwODQ4fQ.mCYKGBbjINR05wod4fycAK5lSTY88sMuC58JQpOiBvI";
 	var mymap = L.map('mapid').setView(new L.LatLng(2.3951228022907083, -76.7386613044317), 21);
 	window.leafletmap = mymap;
@@ -34,7 +64,7 @@
 	bounds = L.latLngBounds([southWest, northEast]);
 	var googleTraffic = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
         maxZoom: 25,
-        minZoom: 16,
+        minZoom: 0,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
     }).addTo(mymap);
     $.ajax({
@@ -60,8 +90,6 @@
                 console.log("Error: " + errorThrown);
             }
         });
-
-
 </script>
 </body>
 </html>
