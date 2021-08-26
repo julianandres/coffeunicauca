@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface NativeQueryRepository {
         public List<PlantDTO> findPlantsNotCompleted();
+        public boolean actualizarValoresActualesPlanta(String jsonData, Integer id);
     }

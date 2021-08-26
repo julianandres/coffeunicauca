@@ -30,8 +30,8 @@ public class DataController {
     }
 
     @PostMapping("/enviarDatosPlanta")
-    public String enviarDatosPlanta(@RequestParam String altura, @RequestParam String numRamas) {
-        System.out.println(altura);
+    public String enviarDatosPlanta(@RequestBody String data,@RequestParam Integer id) {
+        nativeQueryRepository.actualizarValoresActualesPlanta(data,id);
         return "OK";
     }
 
