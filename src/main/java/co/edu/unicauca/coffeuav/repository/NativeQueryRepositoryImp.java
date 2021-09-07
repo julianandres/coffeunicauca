@@ -21,7 +21,7 @@ public class NativeQueryRepositoryImp implements NativeQueryRepository{
 
     @Override
     public List<PlantDTO> findPlantsNotCompleted() {
-        String sql = "SELECT id, area, volumen, contorno, posicion_algoritmo as posicionAlgoritmo, manual_values AS valoresManuales FROM plant WHERE  data_statistic IS NOT NULL AND volumen>0 limit 10";
+        String sql = "SELECT id, area, volumen, contorno, posicion_algoritmo as posicionAlgoritmo, manual_values AS valoresManuales FROM plant WHERE volumen>0";
         return em.unwrap(org.hibernate.Session.class).createSQLQuery(sql).setResultTransformer(org.hibernate.transform.Transformers.aliasToBean(PlantDTO.class)).list();
 
     }

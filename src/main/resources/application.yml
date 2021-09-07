@@ -20,7 +20,7 @@ spring:
             param_null_passing: true
 
 server:
-  port: 8090   # HTTP (Tomcat) port
+  port: 8092   # HTTP (Tomcat) port
 logging:
   level:
     org.exampledriven.eureka: DEBUG
