@@ -8,11 +8,15 @@ function mostrarModal(element){
     if(data){
         modal.find("#plantHeight").val(data.altura);
         modal.find("#numBranches").val(data.numRamas);
+        modal.find("#diametro").val(data.diametro);
+        modal.find("#status").val(data.status);
         //modal.find("#plantHeight").val(data.plantHeight);
         //modal.find("#plantHeight").val(data.plantHeight);
     }else{
         modal.find("#plantHeight").val("");
         modal.find("#numBranches").val("");
+        modal.find("#diametro").val("");
+        modal.find("#status").val("");
     }
     $('#exampleModal').modal('show');
 }
