@@ -39,6 +39,10 @@ function obtenerPlantasNoConfiguradas(){
             var features=[];
             if(json){
                 console.log(json);
+                var fPlant = json[json.length-1];
+                if(fPlant){
+                    openLeafletLayersODM(fPlant.project, fPlant.taskId, JSON.parse(fPlant.southBounds), JSON.parse(fPlant.northBounds), JSON.parse(fPlant.centro));
+                }
                 json.forEach(function(item,index){
                      var value = {
                                      "type": "Feature",

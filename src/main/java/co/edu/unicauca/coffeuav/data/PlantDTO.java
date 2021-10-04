@@ -7,6 +7,19 @@ public class PlantDTO {
     private  String volumen;
     private String posicionAlgoritmo;
     private String valoresManuales;
+    private String northBounds;
+    private String southBounds;
+    private Integer project;
+    private String taskId;
+    private String centro;
+
+    public String getCentro() {
+        return centro;
+    }
+
+    public void setCentro(String centro) {
+        this.centro = centro;
+    }
 
     public String getValoresManuales() {
         return valoresManuales;
@@ -54,5 +67,37 @@ public class PlantDTO {
 
     public void setPosicionAlgoritmo(String posicionAlgoritmo) {
         this.posicionAlgoritmo = posicionAlgoritmo;
+    }
+
+    public String getNorthBounds() {
+        return northBounds;
+    }
+
+    public void setNorthBounds(String northBounds) {
+        this.northBounds = northBounds;
+    }
+
+    public String getSouthBounds() {
+        return southBounds;
+    }
+
+    public void setSouthBounds(String southBounds) {
+        this.southBounds = southBounds;
+    }
+
+    public Integer getProject() {
+        return project;
+    }
+
+    public void setProject(Integer project) {
+        this.project = project;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 }
