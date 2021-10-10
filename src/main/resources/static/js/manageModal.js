@@ -4,20 +4,24 @@ function mostrarModal(element){
 
     var modal= $('#exampleModal');
     modal[0].dataElement=element.dataFeature;
+    modal.find("#messageNodesHeader").text("");
+    modal.find("#messageBeansHeader").text("");
+    modal.find("#messageNodesFooter").text("");
+    modal.find("#messageBeansFooter").text("");
 
-    if(data){
-        modal.find("#plantHeight").val(data.altura);
-        modal.find("#numBranches").val(data.numRamas);
-        modal.find("#diametro").val(data.diametro);
-        modal.find("#status").val(data.status);
+    modal.find("#plantHeight").val(data?data.altura:"");
+    modal.find("#numBranches").val(data?data.numRamas:"");
+    modal.find("#diametro").val(data?data.diametro:"");
+    modal.find("#status").val(data?data.status:"");
+    modal.find("#numRamasHeader").val(data?data.numRamasHeader:"");
+    modal.find("#numNodesHeader").val(data?data.numNodesHeader:"");
+    modal.find("#numBeansHeader").val(data?data.numBeansHeader:"");
+    modal.find("#numRamasFooter").val(data?data.numRamasFooter:"");
+    modal.find("#numNodesFooter").val(data?data.numNodesFooter:"");
+    modal.find("#numBeansFooter").val(data?data.numBeansFooter:"");
         //modal.find("#plantHeight").val(data.plantHeight);
         //modal.find("#plantHeight").val(data.plantHeight);
-    }else{
-        modal.find("#plantHeight").val("");
-        modal.find("#numBranches").val("");
-        modal.find("#diametro").val("");
-        modal.find("#status").val("");
-    }
+
     $('#exampleModal').modal('show');
 }
 function objectifyForm(formArray) {

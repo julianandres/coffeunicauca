@@ -47,11 +47,6 @@
 						<label for="diametro" class="col-form-label">Diametro(cm):</label>
 						<input class="form-control" id="diametro" name="diametro"/>
 					</div>
-					<div class="form-group">
-						<label for="numBranches" class="col-form-label">Número de Ramas:</label>
-						<input class="form-control" id="numBranches" name="numRamas"/>
-					</div>
-
 					<label class="my-1 mr-2" for="status">Estado de la planta:</label>
 					<select class="form-control" id="status" name="status">
 						<option value="4" >Optimo</option>
@@ -59,7 +54,62 @@
 						<option value="2">Regular</option>
 						<option value="1">Malo</option>
 					</select>
-					<div class="modal-footer">
+					<div class="form-group" style="border: green 2px solid">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							Copa del árbol
+						</button>
+						<div id="collapseOne" class="collapse form-group" aria-labelledby="headingTwo" data-parent="#accordionExample">
+
+							<label for="numRamasHeader" class="col-form-label">Número de Ramas:</label>
+							<input class="form-control"  id="numRamasHeader" type="number" name="numRamasHeader" onchange="onChangeBranches('messageNodesHeader',this)"/>
+							<label style="color:red;" id="messageNodesHeader" class="col-form-label"></label></br>
+
+							<label for="numNodesHeader" class="col-form-label">Número de Nodos:</label>
+							<input class="form-control" type="number"  id="numNodesHeader" name="numNodesHeader" onchange="onChangeNodes('messageBeansHeader',this)"/>
+							<label style="color:red;" id="messageBeansHeader" class="col-form-label"></label> </br>
+
+							<label for="numBeansHeader" class="col-form-label">Número de Granos:</label>
+							<input class="form-control" type="number" id="numBeansHeader" name="numBeansHeader"/>
+
+						</div>
+					</div>
+					<!--
+					<div class="form-group" style="border: blue 2px solid">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+							Mitad del árbol
+						</button>
+						<div id="collapseTwo" class="collapse form-group" aria-labelledby="headingTwo" data-parent="#accordionExample">
+							<div class="form-group">
+								<label for="numBranchesMiddle" class="col-form-label">Número de Ramas:</label>
+								<input class="form-control" id="numBranchesMiddle" name="numRamasMiddle"/>
+								<label for="numNodesMiddle" class="col-form-label">Número de Nodos:</label>
+								<input class="form-control" id="numNodesMiddle" name="numNodesMiddle"/>
+								<label for="numBeansMiddle" class="col-form-label">Número de Granos:</label>
+								<input class="form-control" id="numBeansMiddle" name="numBeansMiddle"/>
+							</div>
+						</div>
+					</div>
+					-->
+					<div class="form-group" style="border: orange 2px solid">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+							Falda del árbol
+						</button>
+						<div id="collapseThree" class="collapse form-group" aria-labelledby="headingTwo" data-parent="#accordionExample">
+							<div class="form-group">
+								<label for="numRamasFooter" class="col-form-label">Número de Ramas:</label>
+								<input class="form-control" type="number" id="numRamasFooter" name="numRamasFooter" onchange="onChangeBranches('messageNodesFooter',this)"/>
+								<label style="color:red;" id="messageNodesFooter" class="col-form-label"></label></br>
+
+								<label for="numNodesFooter" class="col-form-label">Número de Nodos:</label>
+								<input class="form-control" type="number" id="numNodesFooter" name="numNodesFooter" onchange="onChangeNodes('messageBeansFooter',this)"/>
+								<label style="color:red;" id="messageBeansFooter" class="col-form-label"></label></br>
+
+								<label for="numBeansHeader" class="col-form-label">Número de Granos:</label>
+								<input class="form-control" type="number" id="numBeansFooter" name="numBeansFooter"/>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" >
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						<button type="submit" class="btn btn-primary" data-name="register" onclick="formSubmit(event)">Guardar</button>
 					</div>

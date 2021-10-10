@@ -1,17 +1,40 @@
 function whenClicked(e) {
-if(e&&e.target.feature.properties&&e.target.feature.properties){
-var btn=$("#"+e.target.feature.properties.id);
-if(btn&&btn[0])
-    btn[0].dataFeature=e.target.feature.properties;
+    if(e&&e.target.feature.properties&&e.target.feature.properties){
+    var btn=$("#"+e.target.feature.properties.id);
+    if(btn&&btn[0])
+        btn[0].dataFeature=e.target.feature.properties;
+    }
+    e.target.setStyle({color:"red",opacity:0.7,fillOpacity:0.7});
+    Object.keys(e.target._map._targets).forEach(function(item){
+    var target=e.target._map._targets[item];
+    if(target&&e.target._leaflet_id!==target._leaflet_id&&target.setStyle){
+        target.setStyle({opacity:0.4,fillOpacity:0.4});
+    }
+    });
 }
-e.target.setStyle({color:"red",opacity:0.7,fillOpacity:0.7});
-Object.keys(e.target._map._targets).forEach(function(item){
-var target=e.target._map._targets[item];
-if(target&&e.target._leaflet_id!==target._leaflet_id&&target.setStyle){
-    target.setStyle({opacity:0.4,fillOpacity:0.4});
+function onChangeBranches(branches,element){
+   if(JSON.parse(element.value)&&typeof JSON.parse(element.value) == "number"){
+      var elementValue = JSON.parse(element.value);
+      var rta = calculateSample(elementValue);
+      $("#"+branches).text("Debes contar los nodos de  "+Math.trunc(rta)+"  Ramas");
+   }
 }
-});
+function onChangeNodes(branches,element){
+   if(JSON.parse(element.value)&&typeof JSON.parse(element.value) == "number"){
+      var elementValue = JSON.parse(element.value);
+      var rta = calculateSample(elementValue);
+      $("#"+branches).text("Debes contar los frutos de  "+Math.trunc(rta)+"  Nodos");
+   }
 }
+function calculateSample(population){
+      var valueZ=1.28;
+      var error=0.08;
+      var numerator = (valueZ*valueZ)*(0.5*0.5)*population;
+      var denominator= ((error*error)*(population-1))+(valueZ*valueZ)*(0.5*0.5)
+      var rta = numerator/denominator;
+      return rta;
+}
+
 var layerGroup = new L.LayerGroup();
 function onEachFeature(feature, layer) {
 if (feature.properties) {
@@ -79,9 +102,6 @@ function obtenerPlantasNoConfiguradas(){
                      layerGroup.addLayer(leafletFile);
                 }
 
-                    console.log(leafletFile);
-                    navigator.geolocation.getCurrentPosition(dibujarMarker);
-
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -90,25 +110,39 @@ function obtenerPlantasNoConfiguradas(){
         }
     });
 }
+var layerGroupMarker = new L.LayerGroup();
 function dibujarMarker(position){
-var geojsonFeature = {
-    "type": "Feature",
-    "properties": {
-        "name": "Mi Posicion",
-        "amenity": "Actual",
-        "popupContent": "Mi Posición"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [ position.coords.longitude,position.coords.latitude]
-    }
-};
-setTimeout(function(){
-    if(window.leafletmap)
-        L.geoJSON(geojsonFeature).addTo(window.leafletmap);
-},window.leafletmap?100:1000);
+    var geojsonFeature = {
+        "type": "Feature",
+        "properties": {
+            "name": "Mi Posicion",
+            "amenity": "Actual",
+            "popupContent": "Mi Posición"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [ position.coords.longitude,position.coords.latitude]
+        }
+    };
+
+    setTimeout(function(){
+        if(window.leafletmap){
+            window.leafletmap.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
+            layerGroupMarker.addTo(window.leafletmap);
+            var leafletMarker=L.geoJSON(geojsonFeature);
+            if(layerGroupMarker.getLayers().length>0)
+                layerGroupMarker.removeLayer(layerGroupMarker.getLayers()[0]);
+            layerGroupMarker.addLayer(leafletMarker);
+        }
+
+    },window.leafletmap?100:1000);
 
 }
+
+setInterval(function(){
+   if(!location.href.includes("localhost"))
+        navigator.geolocation.getCurrentPosition(dibujarMarker);
+},3000);
 
 
 $( document ).ready(function() {

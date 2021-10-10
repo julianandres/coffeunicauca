@@ -7,7 +7,7 @@
            northEast = L.latLng([2.3955428881953593, -76.73763781096866]);
            southWest = L.latLng(boundsSouth);
            northEast = L.latLng(boundsNorth);
-           var mymap = L.map('mapid').setView(center, 21);
+           var mymap =window.leafletmap?window.leafletmap:L.map('mapid').setView(center, 21);
                       window.leafletmap = mymap;
 
            bounds = L.latLngBounds([southWest, northEast]);
