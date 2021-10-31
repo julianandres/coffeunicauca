@@ -4,7 +4,7 @@
     <groupId>co.edu.unicauca.coffeuav</groupId>
     <artifactId>cipher</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Cipher</name>
     <description>Simple proyecto para guardar archivvos</description>
     <parent>
@@ -34,6 +34,10 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

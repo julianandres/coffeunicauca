@@ -11,11 +11,13 @@
                       window.leafletmap = mymap;
 
            bounds = L.latLngBounds([southWest, northEast]);
-           var googleTraffic = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-               maxZoom: 25,
-               minZoom: 0,
-               subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-           }).addTo(mymap);
+           if(navigator.onLine&&false){
+               var googleTraffic = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                   maxZoom: 25,
+                   minZoom: 0,
+                   subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+               }).addTo(mymap);
+           }
            $.ajax({
                    url: "http://"+location.hostname + ":8000/api/token-auth/",
                    cache: false,

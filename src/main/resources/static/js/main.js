@@ -17,6 +17,7 @@ function onChangeBranches(branches,element){
       var elementValue = JSON.parse(element.value);
       var rta = calculateSample(elementValue);
       $("#"+branches).text("Debes contar los nodos de  "+Math.trunc(rta)+"  Ramas");
+      guardarValoresActuales();
    }
 }
 function onChangeNodes(branches,element){
@@ -24,6 +25,7 @@ function onChangeNodes(branches,element){
       var elementValue = JSON.parse(element.value);
       var rta = calculateSample(elementValue);
       $("#"+branches).text("Debes contar los frutos de  "+Math.trunc(rta)+"  Nodos");
+      guardarValoresActuales();
    }
 }
 function calculateSample(population){
@@ -55,7 +57,7 @@ if (feature.properties) {
 
 function obtenerPlantasNoConfiguradas(){
  $.ajax({
-        url: location.origin + "/getPlantsToComplete",
+        url: location.origin + "/getPlantsToComplete?codLote=3&maxId=123",
         cache: false,
         type: "GET",
         success: function (json) {
@@ -127,7 +129,7 @@ function dibujarMarker(position){
 
     setTimeout(function(){
         if(window.leafletmap){
-            window.leafletmap.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
+            //window.leafletmap.panTo(new L.LatLng(position.coords.latitude,position.coords.longitude));
             layerGroupMarker.addTo(window.leafletmap);
             var leafletMarker=L.geoJSON(geojsonFeature);
             if(layerGroupMarker.getLayers().length>0)
@@ -139,12 +141,32 @@ function dibujarMarker(position){
 
 }
 
-setInterval(function(){
-   if(!location.href.includes("localhost"))
-        navigator.geolocation.getCurrentPosition(dibujarMarker);
-},3000);
+   //if(!location.href.includes("localhost"))
+        navigator.geolocation.watchPosition(dibujarMarker);
+
 
 
 $( document ).ready(function() {
 obtenerPlantasNoConfiguradas();
 });
+
+function guardarValoresActuales(){
+    var frm = $('#register');
+    var dataElement= $('#exampleModal')[0].dataElement;
+    var data = objectifyForm(frm.serializeArray());
+    $.ajax({
+        type: "POST",
+        url: 'enviarDatosPlanta?id='+dataElement.id,
+        data: JSON.stringify(data),
+        processData: false,
+        contentType: "application/json; charset=UTF-8",
+        success: function (rta) {
+            console.log('Submission was successful.');
+            console.log(me);
+        },
+        error: function (rta) {
+            console.log('An error occurred.');
+            console.log(rta);
+        }
+    });
+}

@@ -4,7 +4,7 @@ spring:
   application:
      name: suite-service  # Service registers under this name
   datasource:
-     url: jdbc:mysql://localhost:3306/suite2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Lima&enabledTLSProtocols=TLSv1.2
+     url: jdbc:mysql://localhost:3306/suite2_bk?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Lima&enabledTLSProtocols=TLSv1.2
      username: root
      password: root
      testOnBorrow: true
@@ -21,6 +21,9 @@ spring:
 
 server:
   port: 8092   # HTTP (Tomcat) port
+  compression:
+      enabled: true
+      mime-types: text/html, text/xml, text/plain, text/css, text/javascript, application/javascript, application/json
 logging:
   level:
     org.exampledriven.eureka: DEBUG
