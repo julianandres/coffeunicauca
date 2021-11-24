@@ -25,9 +25,9 @@ public class DataController {
     private ServletContext servletContext;
 
     @GetMapping("/getPlantsToComplete")
-    public List<PlantDTO> getPlantsToComplete(@RequestParam(required = false) Integer codLote,@RequestParam(required = false) Integer maxId) {
+    public List<PlantDTO> getPlantsToComplete(@RequestParam(required = false) Integer codLote,@RequestParam(required = false) Integer maxId,@RequestParam(required = false) Integer minId) {
         codLote=codLote!=null?codLote:3;
-        return nativeQueryRepository.findPlantsNotCompleted(codLote,maxId);
+        return nativeQueryRepository.findPlantsNotCompleted(codLote,maxId,minId);
     }
 
     @PostMapping("/enviarDatosPlanta")

@@ -57,7 +57,7 @@ if (feature.properties) {
 
 function obtenerPlantasNoConfiguradas(){
  $.ajax({
-        url: location.origin + "/getPlantsToComplete?codLote=3&maxId=123",
+        url: location.origin + "/getPlantsToComplete?codLote=1&maxId=2500&minId=0",
         cache: false,
         type: "GET",
         success: function (json) {
