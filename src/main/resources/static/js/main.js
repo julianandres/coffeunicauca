@@ -1,5 +1,6 @@
 function whenClicked(e) {
     if(e&&e.target.feature.properties&&e.target.feature.properties){
+    navigator.clipboard.writeText(e.target.feature.properties.id);
     var btn=$("#"+e.target.feature.properties.id);
     if(btn&&btn[0])
         btn[0].dataFeature=e.target.feature.properties;
@@ -50,6 +51,12 @@ if (feature.properties) {
     layer.on({
             click: whenClicked
      });
+     var label = L.marker(layer.getBounds().getCenter(), {
+           icon: L.divIcon({
+             className: 'label',
+             html: '<label style="color:red">'+"id: "+feature.properties.id+'</label>'
+           })
+         }).addTo(window.leafletmap);
 }
 
 
@@ -57,7 +64,7 @@ if (feature.properties) {
 
 function obtenerPlantasNoConfiguradas(){
  $.ajax({
-        url: location.origin + "/getPlantsToComplete?codLote=1&maxId=2500&minId=0",
+        url: location.origin + "/getPlantsToComplete?codLote=1&maxId=14080&minId=5169",
         cache: false,
         type: "GET",
         success: function (json) {
