@@ -1,11 +1,11 @@
 function whenClicked(e) {
     if(e&&e.target.feature.properties&&e.target.feature.properties){
-    navigator.clipboard.writeText(e.target.feature.properties.id);
     var btn=$("#"+e.target.feature.properties.id);
+
     if(btn&&btn[0])
         btn[0].dataFeature=e.target.feature.properties;
     }
-    e.target.setStyle({color:"red",opacity:0.7,fillOpacity:0.7});
+    e.target.setStyle({color:"orange",opacity:0.7,fillOpacity:0.7});
     Object.keys(e.target._map._targets).forEach(function(item){
     var target=e.target._map._targets[item];
     if(target&&e.target._leaflet_id!==target._leaflet_id&&target.setStyle){
@@ -17,7 +17,7 @@ function onChangeBranches(branches,element){
    if(JSON.parse(element.value)&&typeof JSON.parse(element.value) == "number"){
       var elementValue = JSON.parse(element.value);
       var rta = calculateSample(elementValue);
-      $("#"+branches).text("Debes contar los nodos de  "+Math.trunc(rta)+"  Ramas");
+      $("#"+branches).text("Debes contar los nodos de  5  Ramas");
       guardarValoresActuales();
    }
 }
@@ -25,7 +25,7 @@ function onChangeNodes(branches,element){
    if(JSON.parse(element.value)&&typeof JSON.parse(element.value) == "number"){
       var elementValue = JSON.parse(element.value);
       var rta = calculateSample(elementValue);
-      $("#"+branches).text("Debes contar los frutos de  "+Math.trunc(rta)+"  Nodos");
+      $("#"+branches).text("Debes contar los frutos de  10  Nodos");
       guardarValoresActuales();
    }
 }
@@ -50,21 +50,14 @@ if (feature.properties) {
 
     layer.on({
             click: whenClicked
-     });
-     var label = L.marker(layer.getBounds().getCenter(), {
-           icon: L.divIcon({
-             className: 'label',
-             html: '<label style="color:red">'+"id: "+feature.properties.id+'</label>'
-           })
-         }).addTo(window.leafletmap);
-}
+     });}
 
 
 }
 
 function obtenerPlantasNoConfiguradas(){
  $.ajax({
-        url: location.origin + "/getPlantsToComplete?codLote=1&maxId=14080&minId=5169",
+        url: location.origin + "/getPlantsToComplete?codLote=3&maxId=7800&minId=7090",
         cache: false,
         type: "GET",
         success: function (json) {
@@ -76,6 +69,16 @@ function obtenerPlantasNoConfiguradas(){
                     openLeafletLayersODM(fPlant.project, fPlant.taskId, JSON.parse(fPlant.southBounds), JSON.parse(fPlant.northBounds), JSON.parse(fPlant.centro));
                 }
                 json.forEach(function(item,index){
+
+                     var color='blue';
+                     if(item.valoresManuales){
+                         var valores = JSON.parse(item.valoresManuales);
+                         if(valores&&valores.numBeansFooter){
+                            color="green";
+                         }else{
+                            color="white";
+                         }
+                     }
                      var value = {
                                      "type": "Feature",
                                      "properties": {
@@ -84,7 +87,7 @@ function obtenerPlantasNoConfiguradas(){
                                          "id":item.id,
                                          "l":item.posicionAlgoritmo,
                                          "manualValues":item.valoresManuales,
-                                         "color":item.valoresManuales?"green":('blue')
+                                         "color":color
                                      },
                                      "geometry": {
                                          "type": "Polygon",
