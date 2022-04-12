@@ -1,7 +1,7 @@
 function whenClicked(e) {
     if(e&&e.target.feature.properties&&e.target.feature.properties){
     var btn=$("#"+e.target.feature.properties.id);
-
+    navigator.clipboard.writeText(e.target.feature.properties.id);
     if(btn&&btn[0])
         btn[0].dataFeature=e.target.feature.properties;
     }
@@ -50,14 +50,21 @@ if (feature.properties) {
 
     layer.on({
             click: whenClicked
-     });}
+     });
+    var label = L.marker(layer.getBounds().getCenter(), {
+               icon: L.divIcon({
+                 className: 'label',
+                 html: '<label style="color:red">'+"id: "+feature.properties.id+'</label>'
+               })
+             }).addTo(window.leafletmap);
+     }
 
 
 }
 
 function obtenerPlantasNoConfiguradas(){
  $.ajax({
-        url: location.origin + "/getPlantsToComplete?codLote=3&maxId=7800&minId=7090",
+        url: location.origin + "/getPlantsToComplete?codLote=3&maxId=7090&minId=0",
         cache: false,
         type: "GET",
         success: function (json) {
