@@ -21,7 +21,7 @@ public class NativeQueryRepositoryImp implements NativeQueryRepository{
 
     @Override
     public List<PlantDTO> findPlantsNotCompleted(Integer codLote, Integer maxId,Integer minId) {
-        String sql = "SELECT p.id, p.area, p.volumen, p.contorno as contorno, p.posicion_algoritmo as posicionAlgoritmo, p.manual_values AS valoresManuales, l.taskid as taskId, l.project,l.south_bound as southBounds, l.north_bound as northBounds, p.centro  FROM plant p JOIN lote l ON l.id=p.cod_lote WHERE p.cod_lote="+codLote+" AND p.id<"+maxId+" AND p.id>"+minId;
+        String sql = "SELECT p.id, p.area, p.volumen, p.contorno as contorno, p.posicion_algoritmo as posicionAlgoritmo, p.manual_values AS valoresManuales, l.taskid as taskId, l.project,l.south_bound as southBounds, l.north_bound as northBounds, p.centro  FROM plant p JOIN lote l ON l.id=p.cod_lote WHERE p.altura>0 AND p.altura is not null AND p.cod_lote="+codLote+" AND p.id<"+maxId+" AND p.id>"+minId;
         return em.unwrap(org.hibernate.Session.class).createSQLQuery(sql).setResultTransformer(org.hibernate.transform.Transformers.aliasToBean(PlantDTO.class)).list();
 
     }
